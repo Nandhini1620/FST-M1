@@ -1,6 +1,6 @@
 package fst_m1_java;
 
-public class HelloWorld {
+public class Activity1 {
 
 	public static void main(String[] args) {
 		String name="Nandhini";
