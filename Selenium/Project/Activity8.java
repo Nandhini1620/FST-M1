@@ -8,6 +8,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -18,12 +20,14 @@ public class Activity8 {
 	
 	public String baseUrl = "https://alchemy.hguy.co/crm/";
 	public WebDriver driver;
+	public WebDriverWait wait;
 	
 	@BeforeClass
 	public void setBaseUrl()
 	{
 		driver = new FirefoxDriver();
 		driver.get(baseUrl);
+		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 	}
 	
 	@Test
@@ -48,6 +52,7 @@ public class Activity8 {
 		
 		WebElement accounts = driver.findElement(By.id("moduleTab_9_Accounts")); //Accounts
 		accounts.click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".table-responsive")));
 		
 		//this will print odd number of the table
 		
@@ -64,9 +69,6 @@ public class Activity8 {
 		}
         
 	}
-	
-	
-	
 	
 	@AfterClass
 	public void zendSession() {

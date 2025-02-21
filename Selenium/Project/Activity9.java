@@ -7,6 +7,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -18,12 +20,14 @@ public class Activity9 {
 	
 		public String baseUrl = "https://alchemy.hguy.co/crm/";
 		public WebDriver driver;
+		public WebDriverWait wait;
 		
 		@BeforeClass
 		public void setBaseUrl()
 		{
 			driver = new FirefoxDriver();
 			driver.get(baseUrl);
+			wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		}
 		
 		@Test
@@ -41,13 +45,16 @@ public class Activity9 {
 		@Test
 		public void traversingTables() throws InterruptedException {
 			
-			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+			//driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".table-responsive")));
 			
 			WebElement sale = driver.findElement(By.id("grouptab_0")); //Sales
 			sale.click();
 			
 			WebElement lead = driver.findElement(By.id("moduleTab_9_Leads")); //leads
 			lead.click();
+			
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".table-responsive")));
 			
 			String rowsXpathText;
 			List<WebElement> row;
